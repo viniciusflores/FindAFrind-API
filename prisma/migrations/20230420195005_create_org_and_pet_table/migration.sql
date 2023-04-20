@@ -20,7 +20,7 @@ CREATE TABLE "org" (
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "cep" TEXT NOT NULL,
-    "adress" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
     "password_hash" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
