@@ -1,6 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { createOrgService } from '@/services/orgs/create-org-service'
+import { CreateOrgService } from '@/services/orgs/create-org-service'
+import { PrismaOrgRepository } from '@/repositories/prisma/prisma-org-repository'
+import { UserAlreadyExistsError } from '@/services/errors/user-already-exists-error'
 
 export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
   const createOrgSchema = z.object({
@@ -17,9 +19,21 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
   )
 
   try {
-    await createOrgService({ name, email, password, phone, cep, address })
+    const repository = new PrismaOrgRepository()
+    const createOrgService = new CreateOrgService(repository)
+    await createOrgService.execute({
+      name,
+      email,
+      password,
+      phone,
+      cep,
+      address,
+    })
   } catch (err) {
-    return reply.status(409).send()
+    if (err instanceof UserAlreadyExistsError) {
+      return reply.status(409).send({ message: err.message })
+    }
+    return reply.status(500).send()
   }
 
   return reply.status(201).send()

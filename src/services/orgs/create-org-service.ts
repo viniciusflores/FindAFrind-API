@@ -1,5 +1,6 @@
 import { hash } from 'bcryptjs'
-import { prisma } from '@/lib/prisma'
+import { OrgsRepository } from '@/repositories/org-repository'
+import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
 
 interface ICreateOrgService {
   name: String
@@ -10,31 +11,33 @@ interface ICreateOrgService {
   address: String
 }
 
-export async function createOrgService({
-  name,
-  email,
-  password,
-  phone,
-  cep,
-  address,
-}: ICreateOrgService): Promise<void> {
-  const password_hash = await hash(password, 6)
+export class CreateOrgService {
+  constructor(private orgRepository: OrgsRepository) {}
 
-  const orgWithSameEmail = await prisma.org.findUnique({ where: { email } })
-  const orgWithSamePhone = await prisma.org.findUnique({ where: { phone } })
+  async execute({
+    name,
+    email,
+    password,
+    phone,
+    cep,
+    address,
+  }: ICreateOrgService) {
+    const password_hash = await hash(password, 6)
 
-  if (orgWithSameEmail || orgWithSamePhone) {
-    throw new Error('E-mail or phone already exists.')
-  }
+    const orgWithSameEmail = await this.orgRepository.findByEmail(email)
+    const orgWithSamePhone = await this.orgRepository.findByPhone(phone)
 
-  await prisma.org.create({
-    data: {
+    if (orgWithSameEmail || orgWithSamePhone) {
+      throw new UserAlreadyExistsError()
+    }
+
+    await this.orgRepository.create({
       name,
       email,
       password_hash,
       phone,
       cep,
       address,
-    },
-  })
+    })
+  }
 }
