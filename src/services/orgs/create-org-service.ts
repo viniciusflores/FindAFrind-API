@@ -3,12 +3,12 @@ import { OrgsRepository } from '@/repositories/org-repository'
 import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
 
 interface ICreateOrgService {
-  name: String
-  email: String
-  password: String
-  phone: String
-  cep: String
-  address: String
+  name: string
+  email: string
+  password: string
+  phone: string
+  cep: string
+  address: string
 }
 
 export class CreateOrgService {
