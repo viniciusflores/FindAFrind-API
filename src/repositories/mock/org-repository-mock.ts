@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client'
 
-export class UsersRepositoryMock {
+export class OrgRepositoryMock {
   public orgs: any[] = []
 
   async create(data: Prisma.OrgCreateInput) {
