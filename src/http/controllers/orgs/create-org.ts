@@ -1,8 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { CreateOrgService } from '@/services/orgs/create-org-service'
-import { PrismaOrgRepository } from '@/repositories/prisma/prisma-org-repository'
 import { OrgAlreadyExistsError } from '@/services/errors/org-already-exists-error'
+import { makeCreateOrgService } from '@/services/factories/make-create-org-service'
 
 export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
   const createOrgSchema = z.object({
@@ -19,8 +18,7 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
   )
 
   try {
-    const repository = new PrismaOrgRepository()
-    const createOrgService = new CreateOrgService(repository)
+    const createOrgService = makeCreateOrgService()
     await createOrgService.execute({
       name,
       email,
