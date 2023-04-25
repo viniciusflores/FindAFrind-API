@@ -22,6 +22,16 @@ export class OrgRepositoryMock implements OrgsRepository {
     return org
   }
 
+  async findById(id: string) {
+    const org = this.orgs.find((org) => org.id === id)
+
+    if (!org) {
+      return null
+    }
+
+    return org
+  }
+
   async findByEmail(email: string) {
     const org = this.orgs.find((org) => org.email === email)
 
