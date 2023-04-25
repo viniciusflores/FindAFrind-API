@@ -1,17 +1,20 @@
 -- CreateEnum
-CREATE TYPE "PetAgeDescription" AS ENUM ('FILHOTE', 'JOVEM', 'ADULTO', 'IDOSO');
+CREATE TYPE "PetAgeDescription" AS ENUM ('PUPPY', 'JUNIOR', 'ADULT', 'SENIOR');
 
 -- CreateEnum
-CREATE TYPE "PetSizeDescription" AS ENUM ('PEQUENO', 'MEDIO', 'GRANDE');
+CREATE TYPE "PetSizeDescription" AS ENUM ('SMALL', 'MEDIUM', 'LARGE');
 
 -- CreateEnum
-CREATE TYPE "PetLevelEnergy" AS ENUM ('LOW', 'MEDIUM', 'HIGH');
-
--- CreateEnum
-CREATE TYPE "PetGender" AS ENUM ('MALE', 'FEMALE');
+CREATE TYPE "PetLevelEnergyDescription" AS ENUM ('LOW', 'MEDIUM', 'HIGH');
 
 -- CreateEnum
 CREATE TYPE "PetLevelIndependence" AS ENUM ('LOW', 'MEDIUM', 'HIGH');
+
+-- CreateEnum
+CREATE TYPE "PetRace" AS ENUM ('DOG', 'CAT', 'OTHER');
+
+-- CreateEnum
+CREATE TYPE "PetGender" AS ENUM ('MALE', 'FEMALE');
 
 -- CreateTable
 CREATE TABLE "org" (
@@ -33,11 +36,12 @@ CREATE TABLE "pet" (
     "org_id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "about" TEXT NOT NULL,
-    "age" INTEGER NOT NULL,
-    "ageDescription" "PetAgeDescription" NOT NULL,
+    "age" "PetAgeDescription" NOT NULL,
     "size" "PetSizeDescription" NOT NULL,
-    "energy" "PetLevelEnergy" NOT NULL,
+    "energy" "PetLevelEnergyDescription" NOT NULL,
     "independence" "PetLevelIndependence" NOT NULL,
+    "race" "PetRace" NOT NULL,
+    "gender" "PetGender" NOT NULL,
 
     CONSTRAINT "pet_pkey" PRIMARY KEY ("id")
 );

@@ -25,27 +25,22 @@ model Org {
 }
 
 enum PetAgeDescription {
-  FILHOTE
-  JOVEM
-  ADULTO
-  IDOSO
+  PUPPY
+  JUNIOR
+  ADULT
+  SENIOR
 }
 
 enum PetSizeDescription {
-  PEQUENO
-  MEDIO
-  GRANDE
+  SMALL
+  MEDIUM
+  LARGE
 }
 
-enum PetLevelEnergy {
+enum PetLevelEnergyDescription {
   LOW
   MEDIUM
   HIGH
-}
-
-enum PetGender {
-  MALE
-  FEMALE
 }
 
 enum PetLevelIndependence {
@@ -54,19 +49,31 @@ enum PetLevelIndependence {
   HIGH
 }
 
+enum PetRace {
+  DOG
+  CAT
+  OTHER
+}
+
+enum PetGender {
+  MALE
+  FEMALE
+}
+
 model Pet {
   id String @id @default(uuid())
 
   org    Org    @relation(fields: [org_id], references: [id])
   org_id String
 
-  name           String
-  about          String
-  age            Int
-  ageDescription PetAgeDescription
-  size           PetSizeDescription
-  energy         PetLevelEnergy
-  independence   PetLevelIndependence
+  name         String
+  about        String
+  age          PetAgeDescription
+  size         PetSizeDescription
+  energy       PetLevelEnergyDescription
+  independence PetLevelIndependence
+  race         PetRace
+  gender       PetGender
 
   @@map("pet")
 }
