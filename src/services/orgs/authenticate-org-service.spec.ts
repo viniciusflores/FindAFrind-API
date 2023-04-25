@@ -1,10 +1,8 @@
 import { hash } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { CreateOrgService } from './create-org-service'
 import { OrgRepositoryMock } from '@/repositories/mock/org-repository-mock'
-import { OrgAlreadyExistsError } from '../errors/org-already-exists-error'
-import { AuthenticateOrgService } from './autenticate-org-service'
+import { AuthenticateOrgService } from './authenticate-org-service'
 import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
 
 let orgRepository: OrgRepositoryMock
