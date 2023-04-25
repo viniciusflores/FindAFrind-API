@@ -22,7 +22,7 @@ export async function authenticate(
       {},
       {
         sign: {
-          org: org.id,
+          sub: org.id,
         },
       },
     )
@@ -31,7 +31,7 @@ export async function authenticate(
       {},
       {
         sign: {
-          org: org.id,
+          sub: org.id,
           expiresIn: '7d',
         },
       },
