@@ -13,9 +13,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.15
-          cache: 'npm'
+          cache: 'yarn'
 
-      - run: npm ci
+      - run: yarn install --immutable
 
-      - run: npm run test
+      - run: yarn test
 
