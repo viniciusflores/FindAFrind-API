@@ -17,7 +17,7 @@ describe('Create Pet', () => {
     sut = new CreatePetService(orgRepository, petRepository)
   })
 
-  it('Should be able to create a ORG', async () => {
+  it('Should be able to create a Pet', async () => {
     const org = await orgRepository.create({
       name: 'My Org With Same Email',
       email: 'myorg@example.com',
@@ -42,7 +42,7 @@ describe('Create Pet', () => {
     expect(pet.id).toEqual(expect.any(String))
   })
 
-  it('Should not be able to crate a ORG with a same email', async () => {
+  it('Should not be able to crate a Pet without valid ORG', async () => {
     await expect(() =>
       sut.execute({
         org_id: 'WRONG ORG ID',
