@@ -25,7 +25,7 @@ export class PetRepositoryMock implements PetsRepository {
     return pet
   }
 
-  async findById(id: String) {
+  async findById(id: string) {
     const pet = this.pets.find((pet) => pet.id === id)
 
     if (!pet) {

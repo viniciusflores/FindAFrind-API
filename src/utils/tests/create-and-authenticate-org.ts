@@ -4,7 +4,7 @@ import { FastifyInstance } from 'fastify'
 import request from 'supertest'
 
 export async function createAndAuthenticateOrg(app: FastifyInstance) {
-  await prisma.org.create({
+  const org = await prisma.org.create({
     data: {
       name: 'Org Example',
       email: 'myorg@example.com',
@@ -20,7 +20,8 @@ export async function createAndAuthenticateOrg(app: FastifyInstance) {
     password: '123456',
   })
 
+  const org_id = org.id
   const { token } = response.body
 
-  return { token }
+  return { token, org_id }
 }
