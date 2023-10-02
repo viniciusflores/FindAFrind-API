@@ -1,9 +1,10 @@
 import { randomUUID } from 'node:crypto'
-import { Pet, Prisma } from '@prisma/client'
+import { Org, Pet, Prisma } from '@prisma/client'
 import { PetsRepository } from '../pet-repository'
 
 export class PetRepositoryMock implements PetsRepository {
   public pets: Pet[] = []
+  public orgs: Org[] = []
 
   async create(data: Prisma.PetUncheckedCreateInput) {
     const pet = {
@@ -33,5 +34,48 @@ export class PetRepositoryMock implements PetsRepository {
     }
 
     return pet
+  }
+
+  async findByCity(city: string) {
+    const orgsInCity = this.orgs.filter((org) => org.address === city)
+
+    if (!orgsInCity) {
+      return null
+    }
+
+    const petsOfCity: any[] = []
+
+    orgsInCity.map((org) => {
+      const pet = this.pets.filter((pet) => pet.org_id === org.id)
+      if (pet) {
+        petsOfCity.push(pet)
+      }
+      return null
+    })
+
+    console.log(petsOfCity)
+
+    if (petsOfCity.length === 0) {
+      return null
+    }
+
+    return petsOfCity
+  }
+
+  async createOrg(data: Prisma.OrgCreateInput) {
+    const org = {
+      id: randomUUID(),
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      cep: data.cep,
+      address: data.address,
+      password_hash: data.password_hash,
+      created_at: new Date(),
+    }
+
+    this.orgs.push(org)
+
+    return org
   }
 }
