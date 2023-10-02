@@ -12,6 +12,8 @@ export async function createAndAuthenticateOrg(app: FastifyInstance) {
       password_hash: await hash('123456', 6),
       address: 'Av Presidente Vargas 1501',
       cep: '99999999',
+      city: 'Sao Paulo',
+      state: 'SP',
     },
   })
 

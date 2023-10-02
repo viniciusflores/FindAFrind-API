@@ -10,6 +10,33 @@ interface ICreateOrgServiceRequest {
   phone: string
   cep: string
   address: string
+  city: string
+  state:
+    | 'AC'
+    | 'AL'
+    | 'AP'
+    | 'AM'
+    | 'BA'
+    | 'CE'
+    | 'DF'
+    | 'ES'
+    | 'GO'
+    | 'MA'
+    | 'MT'
+    | 'PA'
+    | 'PB'
+    | 'PR'
+    | 'PE'
+    | 'PI'
+    | 'RJ'
+    | 'RN'
+    | 'RS'
+    | 'RO'
+    | 'RR'
+    | 'SC'
+    | 'SP'
+    | 'SE'
+    | 'TO'
 }
 
 interface ICreateOrgServiceReply {
@@ -25,6 +52,8 @@ export class CreateOrgService {
     phone,
     cep,
     address,
+    city,
+    state,
   }: ICreateOrgServiceRequest): Promise<ICreateOrgServiceReply> {
     const password_hash = await hash(password, 6)
 
@@ -42,6 +71,8 @@ export class CreateOrgService {
       phone,
       cep,
       address,
+      city,
+      state,
     })
 
     return { org }

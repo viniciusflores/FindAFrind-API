@@ -22,6 +22,8 @@ describe('Create Org', () => {
       password: '123456',
       address: 'Av Presidente Vargas 1500',
       cep: '99999999',
+      city: 'Sao Paulo',
+      state: 'SP',
     })
 
     expect(org.id).toEqual(expect.any(String))
@@ -35,6 +37,8 @@ describe('Create Org', () => {
       password_hash: await hash('123456', 6),
       address: 'Av Presidente Vargas 1501',
       cep: '99999991',
+      city: 'Sao Paulo',
+      state: 'SP',
     })
 
     await expect(() =>
@@ -45,6 +49,8 @@ describe('Create Org', () => {
         password: '123456',
         address: 'Av Presidente Vargas 1501',
         cep: '99999991',
+        city: 'Sao Paulo',
+        state: 'SP',
       }),
     ).rejects.toBeInstanceOf(OrgAlreadyExistsError)
   })
@@ -57,6 +63,8 @@ describe('Create Org', () => {
       password_hash: await hash('123456', 6),
       address: 'Av Presidente Vargas 1501',
       cep: '99999991',
+      city: 'Sao Paulo',
+      state: 'SP',
     })
 
     await expect(() =>
@@ -67,6 +75,8 @@ describe('Create Org', () => {
         password: '123456',
         address: 'Av Presidente Vargas 1501',
         cep: '99999991',
+        city: 'Sao Paulo',
+        state: 'SP',
       }),
     ).rejects.toBeInstanceOf(OrgAlreadyExistsError)
   })
