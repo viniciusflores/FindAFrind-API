@@ -59,10 +59,6 @@ export class OrgRepositoryMock implements OrgsRepository {
       (org) => org.city === city.toLowerCase() && org.state === state,
     )
 
-    // if (!orgs) {
-    //   return null
-    // }
-
     return orgs
   }
 }
