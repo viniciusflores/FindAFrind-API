@@ -14,29 +14,31 @@ describe('Find Pet By City (e2e)', () => {
   })
 
   it('should be able to find a Pet by City', async () => {
-    expect(true).toBeTruthy()
+    const { org_id } = await createAndAuthenticateOrg(app)
+
+    const pet = await prisma.pet.create({
+      data: {
+        org_id,
+        name: 'Chico',
+        about: 'Chubby bulldog',
+        age: 'PUPPY',
+        size: 'MEDIUM',
+        energy: 'HIGH',
+        independence: 'LOW',
+        race: 'DOG',
+        gender: 'MALE',
+      },
+    })
+
+    const response = await request(app.server)
+      .get(`/pet/city`)
+      .query({
+        city: 'Sao Paulo',
+        state: 'SP',
+      })
+      .send()
+
+    expect(response.statusCode).toEqual(200)
+    expect(response.body[0]).toEqual(expect.objectContaining(pet))
   })
-
-  // it('should be able to find a Pet By Id', async () => {
-  //   const { org_id } = await createAndAuthenticateOrg(app)
-
-  //   const pet = await prisma.pet.create({
-  //     data: {
-  //       org_id,
-  //       name: 'Chico',
-  //       about: 'Chubby bulldog',
-  //       age: 'PUPPY',
-  //       size: 'MEDIUM',
-  //       energy: 'HIGH',
-  //       independence: 'LOW',
-  //       race: 'DOG',
-  //       gender: 'MALE',
-  //     },
-  //   })
-
-  //   const response = await request(app.server).get(`/pet/${pet.id}`).send()
-
-  //   expect(response.statusCode).toEqual(200)
-  //   expect(response.body.name).toEqual('Chico')
-  // })
 })

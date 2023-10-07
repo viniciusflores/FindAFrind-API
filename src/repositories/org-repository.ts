@@ -5,5 +5,5 @@ export interface OrgsRepository {
   findById(id: string): Promise<Org | null>
   findByEmail(email: string): Promise<Org | null>
   findByPhone(phone: string): Promise<Org | null>
-  findByCity(city: string, state: BrazilState): Promise<Org[] | null>
+  findByCity(city: string, state: BrazilState): Promise<Org[]>
 }

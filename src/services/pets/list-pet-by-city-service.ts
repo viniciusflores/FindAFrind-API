@@ -1,9 +1,7 @@
 import { BrazilState, Pet } from '@prisma/client'
-import { PetNotFoundError } from '../errors/pet-not-found-error'
 import { PetsRepository } from '@/repositories/pet-repository'
 import { OrgsRepository } from '@/repositories/org-repository'
 import { returnOnlyOrgIdsOfOrgArray } from '@/utils/returnOnlyOrgIdsOfOrgArray'
-import { OrgNotFoundInCityError } from '../errors/org-not-found-in-city-error'
 
 interface IListPetByCityServiceRequest {
   city: string
@@ -25,23 +23,9 @@ export class ListPetByCityService {
   }: IListPetByCityServiceRequest): Promise<IListPetByCityServiceReply> {
     const orgs = await this.orgRepository.findByCity(city, state)
 
-    if (!orgs) {
-      throw new OrgNotFoundInCityError()
-    }
-
     const onlyOrgIds = await returnOnlyOrgIdsOfOrgArray(orgs)
 
-    console.log(onlyOrgIds)
-
-    if (1 === 1) {
-      throw new Error('CHEGOU AQUI RAPAZ')
-    }
-
     const pets = await this.petRepository.findByOrgs(onlyOrgIds)
-
-    if (!pets) {
-      throw new PetNotFoundError()
-    }
 
     return { pets }
   }

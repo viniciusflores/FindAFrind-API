@@ -8,7 +8,7 @@ import { PetNotFoundError } from '../errors/pet-not-found-error'
 let petRepository: PetRepositoryMock
 let sut: ListPetByIdService
 
-describe('Create Pet', () => {
+describe('Find Pet by ID', () => {
   beforeEach(() => {
     petRepository = new PetRepositoryMock()
     sut = new ListPetByIdService(petRepository)

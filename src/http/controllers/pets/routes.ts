@@ -9,9 +9,4 @@ export async function petRoutes(app: FastifyInstance) {
 
   app.get('/pet/:id', listPetById)
   app.get('/pet/city', listPetByCity)
-
-  app.get('/', (req, reply) => {
-    console.log('HEALTH CHECK')
-    return reply.status(200).send({ message: 'hello world' })
-  })
 }

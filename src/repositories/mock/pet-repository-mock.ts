@@ -36,12 +36,12 @@ export class PetRepositoryMock implements PetsRepository {
     return pet
   }
 
-  async findByOrgs(orgs: string[]): Promise<Pet[] | null> {
+  async findByOrgs(orgs: string[]): Promise<Pet[]> {
     const petsOfCity = this.pets.filter((pet) => orgs.includes(pet.org_id))
 
-    if (!petsOfCity) {
-      return null
-    }
+    // if (!petsOfCity) {
+    //   return null
+    // }
 
     return petsOfCity
   }
