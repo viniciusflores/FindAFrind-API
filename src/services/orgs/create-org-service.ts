@@ -70,8 +70,8 @@ export class CreateOrgService {
       password_hash,
       phone,
       cep,
-      address,
-      city,
+      address: address.toLowerCase(),
+      city: city.toLowerCase(),
       state,
     })
 

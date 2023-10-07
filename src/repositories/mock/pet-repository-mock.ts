@@ -36,46 +36,13 @@ export class PetRepositoryMock implements PetsRepository {
     return pet
   }
 
-  async findByCity(city: string) {
-    const orgsInCity = this.orgs.filter((org) => org.address === city)
+  async findByOrgs(orgs: string[]): Promise<Pet[] | null> {
+    const petsOfCity = this.pets.filter((pet) => orgs.includes(pet.org_id))
 
-    if (!orgsInCity) {
-      return null
-    }
-
-    const petsOfCity: any[] = []
-
-    orgsInCity.map((org) => {
-      const pet = this.pets.filter((pet) => pet.org_id === org.id)
-      if (pet) {
-        petsOfCity.push(pet)
-      }
-      return null
-    })
-
-    console.log(petsOfCity)
-
-    if (petsOfCity.length === 0) {
+    if (!petsOfCity) {
       return null
     }
 
     return petsOfCity
-  }
-
-  async createOrg(data: Prisma.OrgCreateInput) {
-    const org = {
-      id: randomUUID(),
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      cep: data.cep,
-      address: data.address,
-      password_hash: data.password_hash,
-      created_at: new Date(),
-    }
-
-    this.orgs.push(org)
-
-    return org
   }
 }

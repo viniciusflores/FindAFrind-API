@@ -22,6 +22,8 @@ describe('Authenticate Org', () => {
       password_hash: await hash('123456', 6),
       address: 'Av Presidente Vargas 1501',
       cep: '99999999',
+      city: 'Sao Paulo',
+      state: 'SP',
     })
 
     const { org } = await sut.execute({
@@ -49,6 +51,8 @@ describe('Authenticate Org', () => {
       password_hash: await hash('123456', 6),
       address: 'Av Presidente Vargas 1501',
       cep: '99999991',
+      city: 'Sao Paulo',
+      state: 'SP',
     })
 
     await expect(() =>
