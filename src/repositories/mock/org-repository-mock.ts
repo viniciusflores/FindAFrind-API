@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { Org, Prisma } from '@prisma/client'
+import { BrazilState, Org, Prisma } from '@prisma/client'
 import { OrgsRepository } from '../org-repository'
 
 export class OrgRepositoryMock implements OrgsRepository {
@@ -12,7 +12,9 @@ export class OrgRepositoryMock implements OrgsRepository {
       email: data.email,
       phone: data.phone,
       cep: data.cep,
-      address: data.address,
+      address: data.address.toLowerCase(),
+      city: data.city.toLowerCase(),
+      state: data.state,
       password_hash: data.password_hash,
       created_at: new Date(),
     }
@@ -50,5 +52,13 @@ export class OrgRepositoryMock implements OrgsRepository {
     }
 
     return org
+  }
+
+  async findByCity(city: string, state: BrazilState) {
+    const orgs = this.orgs.filter(
+      (org) => org.city === city.toLowerCase() && org.state === state,
+    )
+
+    return orgs
   }
 }

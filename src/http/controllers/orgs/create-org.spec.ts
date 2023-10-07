@@ -19,6 +19,8 @@ describe('Create Org (e2e)', () => {
       phone: '1199999999',
       cep: '99999999',
       address: 'Av Presidente Vargas 1234',
+      city: 'Sao Paulo',
+      state: 'SP',
     })
 
     expect(response.statusCode).toEqual(201)

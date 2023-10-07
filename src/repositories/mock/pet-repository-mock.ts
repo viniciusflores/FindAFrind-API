@@ -1,9 +1,10 @@
 import { randomUUID } from 'node:crypto'
-import { Pet, Prisma } from '@prisma/client'
+import { Org, Pet, Prisma } from '@prisma/client'
 import { PetsRepository } from '../pet-repository'
 
 export class PetRepositoryMock implements PetsRepository {
   public pets: Pet[] = []
+  public orgs: Org[] = []
 
   async create(data: Prisma.PetUncheckedCreateInput) {
     const pet = {
@@ -33,5 +34,11 @@ export class PetRepositoryMock implements PetsRepository {
     }
 
     return pet
+  }
+
+  async findByOrgs(orgs: string[]): Promise<Pet[]> {
+    const petsOfCity = this.pets.filter((pet) => orgs.includes(pet.org_id))
+
+    return petsOfCity
   }
 }

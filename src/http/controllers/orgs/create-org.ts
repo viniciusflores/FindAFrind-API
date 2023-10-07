@@ -11,11 +11,38 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
     phone: z.string(),
     cep: z.string(),
     address: z.string(),
+    city: z.string(),
+    state: z.enum([
+      'AC',
+      'AL',
+      'AP',
+      'AM',
+      'BA',
+      'CE',
+      'DF',
+      'ES',
+      'GO',
+      'MA',
+      'MT',
+      'PA',
+      'PB',
+      'PR',
+      'PE',
+      'PI',
+      'RJ',
+      'RN',
+      'RS',
+      'RO',
+      'RR',
+      'SC',
+      'SP',
+      'SE',
+      'TO',
+    ]),
   })
 
-  const { name, email, password, phone, cep, address } = createOrgSchema.parse(
-    request.body,
-  )
+  const { name, email, password, phone, cep, address, city, state } =
+    createOrgSchema.parse(request.body)
 
   try {
     const createOrgService = makeCreateOrgService()
@@ -26,6 +53,8 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
       phone,
       cep,
       address,
+      city,
+      state,
     })
   } catch (err) {
     if (err instanceof OrgAlreadyExistsError) {
